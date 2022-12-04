@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <!-- Page content-->
+        <div class="container">
+            <div class="text-center mt-5">
+                <h1>recherche d'article</h1>
+            </div>        
+
+            {% if session.notification %}
+            <div class="row">
+                <div class="col-12">
+                {# affichage des notif #}
+                    <div class="alert alert-{{session.notification.result }}" role="alert">
+                        {{session.notification.message}}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        <div class="row mb-5">
+        {# formemulaire de la recherche #}
+            <form id="" method="GET" action="recherche.php">
+                <div class="col-6">
+                    <input type="text" class="form-control" name="search" value="" placeholder="Mot clé....">
+                </div>
+                {# champs recherche #}
+                <div class="col-6">
+                    <button type="submit" id="submit" value="recherche" class="btn btn-primary">Rechercher</button>
+                </div>
+            </form>
+        </div>
+            <div class="row">
+                {% for  articles in listeArticles %}
+                {# affichage des articles une fois la recherche enclancher #}
+                    {# /*@var $articles articles #} 
+                <div class="col-6 mb-5">
+                    <div class="card">
+                        <img src="img/{{ articles.getId }}.jpg" style="max-width: 200px;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ articles.getTitre }} </h5>
+                            <p class="card-text">{{ articles.getTexte }}</p>
+                            <a href="#" class="btn btn-primary">{{articles.getDate}}</a>
+                            <a href="articles.php?id={{articles.getId}}" class="btn btn-secondary" name="modifier" value="modifier">modifier cet article</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+         </div>

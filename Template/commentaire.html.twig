@@ -1,0 +1,77 @@
+<!-- Page content-->
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+            
+            <!-- affichage de l'article -->
+            <div class="row">
+                {% for articles in listeArticles %}   
+                
+                {# /*@var $articles articles */ #}
+                {# //filtrage par l'id #}
+                {% if articles.getId == cpourtest %}                     
+                
+                {# affichage de l'article  #}
+                <div class="col-12 mb-8">
+                    <div class="card">
+                        <img src="img/{{articles.getId}}.jpg" style="max-width: 200px;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{articles.getTitre}}</h5>
+                            <p class="card-text">{{articles.getTexte}}</p>
+                            <a href="#" class="btn btn-primary">{{articles.getDate}}</a>
+                        </div>
+                    </div>
+                </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>     
+        
+        {# formemulaire des commentaire ajout et affichage #}
+            <form method="POST" action="commentaire.php" enctype="multipart/form-data">
+                
+                <!-- champs spseudo -->
+                <label for="pseudo" class="form-label" >Pseudo</label>    
+                <input type="text" class="form-control" name="pseudo" require />
+                <div class="form-group">
+                    
+                    <!-- champs email -->
+                    <label for="email" class="form-label" >Email</label>    
+                    <input type="text" class="form-control" name="email" require />
+
+                    <!-- zonne d'écriture du commentaire -->
+                    <label for="textarea" class="form-label">Mon commentaire</label>
+                    <textarea class="form-control" name="commentaire" placeholder="Leave a comment here" id="textarea" style="height: 100px" require>inséret votre commentaire</textarea>
+
+                    <!-- recupèration de l'id de l'article -->
+                    <input type="text" name="art_id" class="form-control" value="{{get['id']}}" hidden />   
+                </div>
+                <button type="submit"  class="btn btn-primary" name="boutoncom" value="envoyer">Submit</button>
+            </form>
+            <div>
+                
+                <!-- affichage de mes com -->
+                {% for commentaire in listedescommentaire %} 
+                    {% if commentaire.getArt_Id == cpourtest %}
+                     
+                        {# /*@var $commentaire commentaire */?> #}
+                        <div class="col-6 mb-5">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                <!-- affichage du pseudo -->
+                                <h5 class="card-title">{{ commentaire.getPseudo }}</h5>
+                                
+                                <!-- affichage du commentaire -->
+                                <p class="card-text">{{ commentaire.getCommentaire }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
